@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alvin Collaboration - The Midnight Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .editor-content { min-height: 400px; line-height: 1.6; }
+        .typing-indicator { 
+            animation: blink 1.5s infinite; 
+            background: linear-gradient(90deg, #10b981, #34d399);
+        }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.3; } }
+        .cursor-maya { border-left: 2px solid #10b981; background-color: rgba(16, 185, 129, 0.1); }
+        .cursor-alex { border-left: 2px solid #3b82f6; background-color: rgba(59, 130, 246, 0.1); }
+        .cursor-jordan { border-left: 2px solid #8b5cf6; background-color: rgba(139, 92, 246, 0.1); }
+        .comment-thread { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        .presence-dot { animation: pulse 2s infinite; }
+        .live-change { background-color: rgba(34, 197, 94, 0.2); transition: background-color 2s ease; }
+        .collaboration-glow { box-shadow: 0 0 30px rgba(16, 185, 129, 0.3); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-indigo-600">🎭 Alvin</a>
+                    <div class="ml-4 flex items-center space-x-2">
+                        <span class="text-gray-500">•</span>
+                        <span class="font-medium text-gray-900">The Midnight Academy</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Live Collaboration</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Online Collaborators -->
+                    <div class="flex items-center space-x-2">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white">
+                                M
+                                <div class="absolute w-3 h-3 bg-green-400 border-2 border-white rounded-full -top-1 -right-1 presence-dot"></div>
+                            </div>
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white">
+                                A
+                                <div class="absolute w-3 h-3 bg-green-400 border-2 border-white rounded-full -top-1 -right-1 presence-dot"></div>
+                            </div>
+                            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white">
+                                J
+                                <div class="absolute w-3 h-3 bg-green-400 border-2 border-white rounded-full -top-1 -right-1 presence-dot"></div>
+                            </div>
+                            <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white">
+                                S
+                                <div class="absolute w-3 h-3 bg-green-400 border-2 border-white rounded-full -top-1 -right-1 presence-dot"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm text-gray-500">4 online</span>
+                    </div>
+                    
+                    <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                        💾 Save Changes
+                    </button>
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Active Collaboration Bar -->
+    <div class="bg-green-50 border-b border-green-200 py-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="typing-indicator px-3 py-1 rounded-full text-white text-sm font-medium">
+                        Maya is typing in Chapter 3...
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <div class="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                        Alex left a comment 2 min ago
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <div class="w-2 h-2 bg-purple-400 rounded-full mr-2"></div>
+                        Jordan approved Chapter 2
+                    </div>
+                </div>
+                <div class="text-sm text-gray-500">
+                    Last saved: 3 seconds ago • Auto-save enabled
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Project Sidebar -->
+            <div class="lg:col-span-1">
+                <!-- Project Info -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold text-gray-900">Project Info</h2>
+                        <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">
+                            🌙
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Genre:</span>
+                            <span class="font-medium">Young Adult Fantasy</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Target Words:</span>
+                            <span class="font-medium">75,000</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Current Words:</span>
+                            <span class="font-medium text-green-600">47,382</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Progress:</span>
+                            <span class="font-medium">63%</span>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-green-400 to-blue-500 h-2 rounded-full" style="width: 63%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter Navigation -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Chapters</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                            <span class="text-sm font-medium">Chapter 1: Arrival</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <span class="text-xs text-gray-500">Complete</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                            <span class="text-sm font-medium">Chapter 2: Secrets</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <span class="text-xs text-gray-500">Complete</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-blue-50 rounded-lg border-l-4 border-blue-500 collaboration-glow">
+                            <span class="text-sm font-medium">Chapter 3: The Test</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                <span class="text-xs text-blue-600">Active</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                            <span class="text-sm text-gray-600">Chapter 4: Alliance</span>
+                            <span class="text-xs text-gray-400">Draft</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                            <span class="text-sm text-gray-600">Chapter 5: Betrayal</span>
+                            <span class="text-xs text-gray-400">Planned</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Members -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Team Members</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold relative">
+                                M
+                                <div class="absolute w-3 h-3 bg-green-400 border-2 border-white rounded-full -top-1 -right-1"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-semibold">Maya Rodriguez</div>
+                                <div class="text-xs text-gray-500">Lead Writer • Currently editing Ch.3</div>
+                            </div>
+                            <div class="text-xs text-green-600 font-medium">Owner</div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold relative">
+                                A
+                                <div class="absolute w-3 h-3 bg-green-400 border-2 border-white rounded-full -top-1 -right-1"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-semibold">Alex Chen</div>
+                                <div class="text-xs text-gray-500">Character Dev • Added comment</div>
+                            </div>
+                            <div class="text-xs text-blue-600 font-medium">Editor</div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold relative">
+                                J
+                                <div class="absolute w-3 h-3 bg-green-400 border-2 border-white rounded-full -top-1 -right-1"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-semibold">Jordan Kim</div>
+                                <div class="text-xs text-gray-500">World Building • Online</div>
+                            </div>
+                            <div class="text-xs text-purple-600 font-medium">Collaborator</div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold relative">
+                                S
+                                <div class="absolute w-3 h-3 bg-green-400 border-2 border-white rounded-full -top-1 -right-1"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-semibold">Sam Taylor</div>
+                                <div class="text-xs text-gray-500">Beta Reader • Reviewing Ch.2</div>
+                            </div>
+                            <div class="text-xs text-orange-600 font-medium">Reviewer</div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-4 bg-indigo-100 text-indigo-700 py-2 rounded-lg text-sm font-medium hover:bg-indigo-200">
+                        + Invite Collaborator
+                    </button>
+                </div>
+            </div>
+
+            <!-- Editor Area -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-lg">
+                    <!-- Editor Header -->
+                    <div class="border-b border-gray-200 p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-900">Chapter 3: The Test</h2>
+                                <p class="text-sm text-gray-500">Scene 2: The Ancient Library</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm font-medium">
+                                    🤖 Ask AI Teacher
+                                </button>
+                                <button class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm font-medium">
+                                    📖 Export
+                                </button>
+                                <button class="bg-green-100 text-green-700 px-3 py-1 rounded text-sm font-medium">
+                                    ✓ Mark Complete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Editor Content -->
+                    <div class="p-6">
+                        <div class="editor-content prose max-w-none">
+                            <p class="mb-4">
+                                The ancient library stretched before them like a cathedral of knowledge, its towering shelves 
+                                disappearing into the misty darkness above. Moonlight filtered through the stained glass windows, 
+                                casting ethereal patterns across the leather-bound tomes that seemed to whisper secrets in forgotten languages.
+                            </p>
+                            
+                            <p class="mb-4">
+                                Elara stepped forward cautiously, her footsteps echoing in the vast space. <span class="cursor-maya">The air hummed with ancient magic</span>, making her skin tingle with anticipation and fear. She had heard tales of this place 
+                                from the other students—the Library of Echoes, where the academy's most dangerous knowledge was kept.
+                            </p>
+                            
+                            <p class="mb-4 live-change">
+                                "Remember," Alex whispered beside her, his voice barely audible, "we're not supposed to be here. 
+                                If the Guardians find us..." He didn't need to finish the sentence. They all knew the consequences 
+                                of unauthorized entry into the restricted sections.
+                            </p>
+                            
+                            <p class="mb-4">
+                                Maya nodded, her heart racing as she approached the central lectern. <span class="cursor-alex">The Test awaited them here</span>—an ancient ritual that would determine if they were worthy of the academy's deepest secrets. 
+                                According to legend, only those with pure intentions and unwavering courage could pass.
+                            </p>
+                            
+                            <p class="mb-4">
+                                Jordan emerged from behind a towering shelf, carrying an ornate book bound in midnight-blue leather. 
+                                "I found it," they said, their voice filled with awe. "The Codex of Trials. But there's something 
+                                strange about it..." <span class="cursor-jordan">The pages seem to be writing themselves</span>.
+                            </p>
+                            
+                            <p class="mb-4">
+                                As if responding to Jordan's words, the book began to glow with a soft, silver light. Ancient runes 
+                                appeared on its cover, shifting and changing like living things. The library itself seemed to hold 
+                                its breath, waiting for their decision.
+                            </p>
+                            
+                            <p class="text-gray-400 italic">
+                                [Maya is currently editing this section...]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Version History -->
+                <div class="bg-white rounded-xl shadow-lg mt-6 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Recent Changes</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold">M</div>
+                            <div class="flex-1">
+                                <div class="text-sm font-semibold">Maya Rodriguez</div>
+                                <div class="text-xs text-gray-500">2 minutes ago</div>
+                                <div class="text-sm text-gray-700 mt-1">
+                                    Added atmospheric description to library scene
+                                </div>
+                                <div class="text-xs text-green-600 mt-1">+ 47 words</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">A</div>
+                            <div class="flex-1">
+                                <div class="text-sm font-semibold">Alex Chen</div>
+                                <div class="text-xs text-gray-500">8 minutes ago</div>
+                                <div class="text-sm text-gray-700 mt-1">
+                                    Refined Alex's dialogue for better character voice
+                                </div>
+                                <div class="text-xs text-blue-600 mt-1">Modified 23 words</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3 p-3 bg-purple-50 rounded-lg">
+                            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">J</div>
+                            <div class="flex-1">
+                                <div class="text-sm font-semibold">Jordan Kim</div>
+                                <div class="text-xs text-gray-500">15 minutes ago</div>
+                                <div class="text-sm text-gray-700 mt-1">
+                                    Added mystical elements to the Codex discovery
+                                </div>
+                                <div class="text-xs text-purple-600 mt-1">+ 31 words</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments & Feedback -->
+            <div class="lg:col-span-1">
+                <!-- Active Comments -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-gray-900">Comments</h3>
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">3 Active</span>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- Comment Thread 1 -->
+                        <div class="comment-thread border-l-4 border-blue-500 pl-4">
+                            <div class="flex items-start space-x-2 mb-2">
+                                <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">A</div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-semibold">Alex Chen</div>
+                                    <div class="text-xs text-gray-500">2 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 p-3 rounded-lg text-sm">
+                                "The air hummed with ancient magic" - This is beautiful! Really sets the mysterious atmosphere. Maybe we could add what specific sensations Elara feels?
+                            </div>
+                            <div class="flex items-center space-x-2 mt-2 text-xs">
+                                <button class="text-blue-600 hover:text-blue-800">Reply</button>
+                                <button class="text-gray-500 hover:text-gray-700">Resolve</button>
+                                <span class="text-gray-400">•</span>
+                                <span class="text-gray-500">Line 127-129</span>
+                            </div>
+                        </div>
+
+                        <!-- Comment Thread 2 -->
+                        <div class="comment-thread border-l-4 border-green-500 pl-4">
+                            <div class="flex items-start space-x-2 mb-2">
+                                <div class="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-xs font-bold">S</div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-semibold">Sam Taylor</div>
+                                    <div class="text-xs text-gray-500">5 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="bg-orange-50 p-3 rounded-lg text-sm">
+                                Love the world-building here! The Library of Echoes feels so mysterious. Jordan's discovery of the self-writing book is a great plot device.
+                            </div>
+                            <div class="bg-green-50 p-3 rounded-lg text-sm mt-2 border-l-4 border-green-500">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <div class="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">M</div>
+                                    <span class="text-xs font-semibold">Maya Rodriguez</span>
+                                    <span class="text-xs text-gray-500">3 minutes ago</span>
+                                </div>
+                                Thanks Sam! I want to build more tension around the book's magical properties. Any ideas for how it should "test" them?
+                            </div>
+                            <div class="flex items-center space-x-2 mt-2 text-xs">
+                                <button class="text-green-600 hover:text-green-800">Reply</button>
+                                <button class="text-gray-500 hover:text-gray-700">Resolve</button>
+                            </div>
+                        </div>
+
+                        <!-- Comment Thread 3 -->
+                        <div class="comment-thread border-l-4 border-purple-500 pl-4">
+                            <div class="flex items-start space-x-2 mb-2">
+                                <div class="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">J</div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-semibold">Jordan Kim</div>
+                                    <div class="text-xs text-gray-500">8 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="bg-purple-50 p-3 rounded-lg text-sm">
+                                Should we establish more clearly what the "Test" involves? Readers might want more hints about what's coming.
+                            </div>
+                            <div class="flex items-center space-x-2 mt-2 text-xs">
+                                <button class="text-purple-600 hover:text-purple-800">Reply</button>
+                                <button class="text-gray-500 hover:text-gray-700">Resolve</button>
+                                <span class="text-gray-400">•</span>
+                                <span class="text-gray-500">Line 142-145</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="w-full mt-4 bg-gray-100 text-gray-700 py-2 rounded-lg text-sm font-medium hover:bg-gray-200">
+                        💬 Add Comment
+                    </button>
+                </div>
+
+                <!-- AI Feedback -->
+                <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border border-indigo-200 p-6 mb-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold mr-3">AI</div>
+                        <h3 class="text-lg font-bold text-gray-900">Master Teacher Insights</h3>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="text-sm font-medium text-indigo-700 mb-1">Master Plotwright</div>
+                            <div class="text-sm text-gray-700">
+                                Excellent tension building! Consider adding a time constraint to increase urgency.
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1">Pacing Score: 8.2/10</div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="text-sm font-medium text-green-700 mb-1">Master Worldsmith</div>
+                            <div class="text-sm text-gray-700">
+                                The library setting is vivid and atmospheric. The sensory details draw readers in effectively.
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1">Worldbuilding Score: 9.1/10</div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="text-sm font-medium text-purple-700 mb-1">Master Voicekeeper</div>
+                            <div class="text-sm text-gray-700">
+                                Character voices are distinct and authentic. Jordan's dialogue shows good personality.
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1">Dialogue Score: 8.7/10</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collaboration Stats -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Session Stats</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Words Added Today</span>
+                            <span class="text-sm font-semibold text-green-600">+347</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Comments Resolved</span>
+                            <span class="text-sm font-semibold">12</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Active Time</span>
+                            <span class="text-sm font-semibold">2h 34m</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Collaboration Score</span>
+                            <span class="text-sm font-semibold text-blue-600">96%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                        <div class="text-sm text-green-800 font-medium">🎉 Great teamwork!</div>
+                        <div class="text-xs text-green-600 mt-1">
+                            This chapter is ahead of schedule with excellent collaboration quality.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bg-white border-t border-gray-200 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-500">Chapter 3 of 12</span>
+                    <div class="w-64 bg-gray-200 rounded-full h-2">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: 25%"></div>
+                    </div>
+                    <span class="text-sm text-gray-500">25% Complete</span>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
+                        ← Previous Chapter
+                    </button>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                        Next Chapter →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Navigation -->
+    <div class="bg-gray-100 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Explore More Alvin Features</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="student-dashboard.html" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50">
+                    🎓 Student Experience
+                </a>
+                <a href="writing-studio.html" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50">
+                    ✍️ Writing Studio
+                </a>
+                <a href="publisher-portal.html" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50">
+                    📖 Publisher Portal
+                </a>
+                <a href="index.html" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700">
+                    🏠 Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate live typing
+        let typingUsers = ['Maya', 'Alex', 'Jordan'];
+        let currentTyper = 0;
+        
+        function updateTypingIndicator() {
+            const indicator = document.querySelector('.typing-indicator');
+            const user = typingUsers[currentTyper];
+            indicator.textContent = `${user} is typing in Chapter 3...`;
+            currentTyper = (currentTyper + 1) % typingUsers.length;
+        }
+        
+        setInterval(updateTypingIndicator, 3000);
+        
+        // Simulate live changes
+        function addLiveChange() {
+            const liveElements = document.querySelectorAll('.live-change');
+            liveElements.forEach(el => {
+                el.classList.remove('live-change');
+                setTimeout(() => el.classList.add('live-change'), 100);
+            });
+        }
+        
+        setInterval(addLiveChange, 8000);
+        
+        // Auto-save simulation
+        let saveCount = 3;
+        function updateSaveStatus() {
+            const saveStatus = document.querySelector('.max-w-7xl .text-sm.text-gray-500');
+            if (saveStatus && saveStatus.textContent.includes('Last saved:')) {
+                saveCount++;
+                saveStatus.textContent = `Last saved: ${saveCount} seconds ago • Auto-save enabled`;
+            }
+        }
+        
+        setInterval(updateSaveStatus, 1000);
+    </script>
+</body>
+</html>

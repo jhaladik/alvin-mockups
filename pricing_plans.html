@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alvin Pricing - Flexible Plans for Every Writer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-header { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+        .pricing-card { transition: all 0.3s ease; }
+        .pricing-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .popular-plan { 
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: 3px solid #1d4ed8;
+            transform: scale(1.05);
+        }
+        .popular-badge { 
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+        .scholarship-highlight { 
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+        }
+        .enterprise-card { 
+            background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+            border: 2px solid #8b5cf6;
+        }
+        .calculator-section { 
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 2px solid #0ea5e9;
+        }
+        .toggle-switch { transition: all 0.3s ease; }
+        .toggle-active { background: #3b82f6; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-indigo-600">🎭 Alvin</a>
+                    <div class="ml-4 flex items-center space-x-2">
+                        <span class="text-gray-500">•</span>
+                        <span class="font-medium text-gray-900">Pricing Plans</span>
+                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">All Audiences</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#students" class="text-gray-700 hover:text-purple-600 transition-colors">Students</a>
+                    <a href="#teams" class="text-gray-700 hover:text-purple-600 transition-colors">Teams</a>
+                    <a href="#publishers" class="text-gray-700 hover:text-purple-600 transition-colors">Publishers</a>
+                    <a href="#calculator" class="text-gray-700 hover:text-purple-600 transition-colors">Calculator</a>
+                </div>
+                <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                    Start Free Trial
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="gradient-header text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl font-bold mb-6">
+                💰 Pricing That Works for Everyone
+            </h1>
+            <p class="text-xl mb-8 opacity-90 max-w-4xl mx-auto">
+                From students to publishers, we've designed flexible pricing that grows with your writing journey. 
+                Our non-profit mission ensures educational accessibility while supporting sustainable innovation.
+            </p>
+            
+            <!-- Annual/Monthly Toggle -->
+            <div class="flex items-center justify-center space-x-4 mb-8">
+                <span class="text-purple-100">Monthly</span>
+                <button id="billing-toggle" class="toggle-switch bg-purple-400 rounded-full w-12 h-6 flex items-center px-1">
+                    <div class="bg-white w-4 h-4 rounded-full transition-transform transform"></div>
+                </button>
+                <span class="text-white font-semibold">Annual (Save 20%)</span>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <div class="bg-white bg-opacity-20 rounded-xl p-4">
+                    <div class="text-2xl font-bold">$0</div>
+                    <div class="text-sm opacity-80">Student Starting Price</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-xl p-4">
+                    <div class="text-2xl font-bold">14 Days</div>
+                    <div class="text-sm opacity-80">Free Trial</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-xl p-4">
+                    <div class="text-2xl font-bold">60%</div>
+                    <div class="text-sm opacity-80">Education Discount</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-xl p-4">
+                    <div class="text-2xl font-bold">No Lock-in</div>
+                    <div class="text-sm opacity-80">Cancel Anytime</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Pricing Plans -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Choose Your Writing Journey
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    All plans include access to our 8 Master Teachers, blockchain authorship verification, and world-class support
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Free/Starter Plan -->
+                <div class="pricing-card bg-white border border-gray-200 rounded-xl p-8">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Starter</h3>
+                        <p class="text-gray-600 text-sm mb-4">Perfect for trying Alvin</p>
+                        <div class="mb-4">
+                            <span class="text-4xl font-bold text-gray-900">$0</span>
+                            <span class="text-gray-500">/month</span>
+                        </div>
+                        <div class="text-sm text-gray-500">Forever free</div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            1 project
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            1,000 AI tokens/month
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Basic 8 Master Teachers
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Export to PDF/TXT
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Community support
+                        </li>
+                    </ul>
+
+                    <button class="w-full bg-gray-100 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+                        Get Started Free
+                    </button>
+                </div>
+
+                <!-- Student Plan -->
+                <div class="pricing-card bg-white border border-blue-200 rounded-xl p-8">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Student</h3>
+                        <p class="text-gray-600 text-sm mb-4">For academic success</p>
+                        <div class="mb-4">
+                            <span class="text-4xl font-bold text-gray-900" id="student-price">$12</span>
+                            <span class="text-gray-500">/month</span>
+                        </div>
+                        <div class="text-sm text-green-600 font-medium">🎓 60% education discount</div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            5 projects
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            10,000 AI tokens/month
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Advanced AI analysis
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Study group collaboration
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Assignment submission
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Scholarship eligibility
+                        </li>
+                    </ul>
+
+                    <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                        Start Student Plan
+                    </button>
+                </div>
+
+                <!-- Professional Plan (Popular) -->
+                <div class="pricing-card popular-plan rounded-xl p-8 relative">
+                    <div class="popular-badge absolute -top-4 left-1/2 transform -translate-x-1/2 text-white px-4 py-2 rounded-full text-sm font-medium">
+                        🌟 Most Popular
+                    </div>
+                    
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold mb-2">Professional</h3>
+                        <p class="text-blue-100 text-sm mb-4">For serious writers</p>
+                        <div class="mb-4">
+                            <span class="text-4xl font-bold" id="pro-price">$29</span>
+                            <span class="text-blue-100">/month</span>
+                        </div>
+                        <div class="text-sm text-blue-100">Everything in Student, plus:</div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-300 mr-2">✓</span>
+                            Unlimited projects
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-300 mr-2">✓</span>
+                            50,000 AI tokens/month
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-300 mr-2">✓</span>
+                            Real-time collaboration
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-300 mr-2">✓</span>
+                            Advanced exports (EPUB, DOCX)
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-300 mr-2">✓</span>
+                            Priority support
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-300 mr-2">✓</span>
+                            Publisher submissions
+                        </li>
+                    </ul>
+
+                    <button class="w-full bg-white text-blue-600 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Start Professional
+                    </button>
+                </div>
+
+                <!-- Team Plan -->
+                <div class="pricing-card bg-white border border-green-200 rounded-xl p-8">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Team</h3>
+                        <p class="text-gray-600 text-sm mb-4">For collaborative writing</p>
+                        <div class="mb-4">
+                            <span class="text-4xl font-bold text-gray-900" id="team-price">$89</span>
+                            <span class="text-gray-500">/month</span>
+                        </div>
+                        <div class="text-sm text-gray-500">Up to 10 members</div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Everything in Professional
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            200,000 tokens/month (shared)
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Advanced user management
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Team analytics
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Dedicated account manager
+                        </li>
+                    </ul>
+
+                    <button class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                        Start Team Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Pricing -->
+    <section id="students" class="py-20 bg-blue-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    🎓 Educational Institution Pricing
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Special pricing for schools, universities, and educational organizations
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Classroom License -->
+                <div class="pricing-card bg-white rounded-xl shadow-lg p-8">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Classroom</h3>
+                        <p class="text-gray-600 text-sm mb-4">For individual teachers</p>
+                        <div class="mb-4">
+                            <span class="text-4xl font-bold text-gray-900">$199</span>
+                            <span class="text-gray-500">/semester</span>
+                        </div>
+                        <div class="text-sm text-green-600">Up to 30 students</div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            30 student accounts
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Teacher dashboard
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Assignment management
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Grade integration
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            LMS integration
+                        </li>
+                    </ul>
+
+                    <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                        Request Demo
+                    </button>
+                </div>
+
+                <!-- Department License -->
+                <div class="pricing-card bg-white rounded-xl shadow-lg p-8 border-2 border-blue-300">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Department</h3>
+                        <p class="text-gray-600 text-sm mb-4">For academic departments</p>
+                        <div class="mb-4">
+                            <span class="text-4xl font-bold text-gray-900">$899</span>
+                            <span class="text-gray-500">/semester</span>
+                        </div>
+                        <div class="text-sm text-green-600">Up to 200 students</div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Everything in Classroom
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Multi-teacher coordination
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Department analytics
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Curriculum templates
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Priority support
+                        </li>
+                    </ul>
+
+                    <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                        Contact Sales
+                    </button>
+                </div>
+
+                <!-- Institution License -->
+                <div class="pricing-card enterprise-card rounded-xl p-8">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Institution</h3>
+                        <p class="text-gray-600 text-sm mb-4">For universities & school districts</p>
+                        <div class="mb-4">
+                            <span class="text-4xl font-bold text-gray-900">Custom</span>
+                        </div>
+                        <div class="text-sm text-purple-600">Unlimited students</div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Everything in Department
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Campus-wide deployment
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Advanced analytics
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Custom integrations
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Dedicated support
+                        </li>
+                    </ul>
+
+                    <button class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                        Enterprise Demo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scholarship Program -->
+            <div class="scholarship-highlight rounded-2xl p-8 mt-12">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">📖 Alcuin Scholarship Program</h3>
+                    <p class="text-lg text-gray-700">
+                        Our non-profit mission includes supporting underserved students and emerging writers
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🎓</span>
+                        </div>
+                        <h4 class="font-bold mb-2">Merit Scholarships</h4>
+                        <p class="text-sm text-gray-600">Free Professional plans for students with 3.5+ GPA and demonstrated need</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🌍</span>
+                        </div>
+                        <h4 class="font-bold mb-2">Global Access</h4>
+                        <p class="text-sm text-gray-600">Subsidized pricing for students in developing countries</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">✍️</span>
+                        </div>
+                        <h4 class="font-bold mb-2">Writing Contests</h4>
+                        <p class="text-sm text-gray-600">Annual competitions with cash prizes and publishing opportunities</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <button class="bg-yellow-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-yellow-700 transition-colors">
+                        Apply for Scholarship
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publisher Partnership Pricing -->
+    <section id="publishers" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    📖 Publisher Partnership Program
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Connect with exceptional talent, reduce risk, and build sustainable revenue streams
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Publisher Portal -->
+                <div class="pricing-card bg-white border border-purple-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Publisher Portal Access</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-gray-900">$299</span>
+                        <span class="text-gray-500">/month</span>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Access to talent pipeline
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            AI quality scores & analytics
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Blockchain authorship verification
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Author contact system
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Market trend analysis
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <span class="text-green-500 mr-2">✓</span>
+                            Dedicated partner support
+                        </li>
+                    </ul>
+
+                    <button class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                        Become a Partner
+                    </button>
+                </div>
+
+                <!-- Revenue Sharing Model -->
+                <div class="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200 rounded-xl p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Revenue Sharing Model</h3>
+                    <p class="text-gray-600 mb-6">
+                        Our unique model ensures all stakeholders benefit from successful publications
+                    </p>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between items-center p-4 bg-white rounded-lg">
+                            <span class="font-medium">Author Share</span>
+                            <span class="text-2xl font-bold text-green-600">60%</span>
+                        </div>
+                        <div class="flex justify-between items-center p-4 bg-white rounded-lg">
+                            <span class="font-medium">Publisher Share</span>
+                            <span class="text-2xl font-bold text-blue-600">35%</span>
+                        </div>
+                        <div class="flex justify-between items-center p-4 bg-white rounded-lg">
+                            <span class="font-medium">Education Fund</span>
+                            <span class="text-2xl font-bold text-purple-600">5%</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg">
+                        <h4 class="font-semibold mb-2">Partnership Benefits</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Early access to high-quality manuscripts</li>
+                            <li>• Reduced risk with AI-verified quality scores</li>
+                            <li>• Legal protection with blockchain certificates</li>
+                            <li>• Co-marketing opportunities</li>
+                            <li>• Educational tax benefits (non-profit status)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cost Calculator -->
+    <section id="calculator" class="py-20 bg-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="calculator-section rounded-2xl p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                        🧮 Calculate Your Perfect Plan
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Tell us about your needs and we'll recommend the best pricing option
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Your Usage</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">I am a...</label>
+                                <select id="user-type" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                    <option value="student">Student</option>
+                                    <option value="individual">Individual Writer</option>
+                                    <option value="teacher">Teacher</option>
+                                    <option value="team">Team/Organization</option>
+                                    <option value="publisher">Publisher</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Number of users</label>
+                                <input type="number" id="user-count" value="1" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Expected projects per month</label>
+                                <input type="number" id="project-count" value="2" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">AI usage level</label>
+                                <select id="ai-usage" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                    <option value="light">Light (5,000 tokens/month)</option>
+                                    <option value="moderate">Moderate (15,000 tokens/month)</option>
+                                    <option value="heavy">Heavy (50,000+ tokens/month)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Recommended Plan</h3>
+                        <div id="recommendation" class="bg-white rounded-lg p-6 border-2 border-blue-300">
+                            <div class="text-center">
+                                <h4 class="text-2xl font-bold text-blue-600 mb-2">Professional Plan</h4>
+                                <div class="text-4xl font-bold text-gray-900 mb-2">$29</div>
+                                <div class="text-gray-500 mb-4">/month</div>
+                                <div class="text-sm text-gray-600 mb-4">
+                                    Perfect for your needs with room to grow
+                                </div>
+                                <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                    Start Free Trial
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-white rounded-lg">
+                            <h4 class="font-semibold mb-2">Why this plan?</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Supports your project volume</li>
+                                <li>• Adequate AI tokens for moderate usage</li>
+                                <li>• Real-time collaboration features</li>
+                                <li>• Professional export options</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    ❓ Frequently Asked Questions
+                </h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-2">What happens to my work if I cancel?</h3>
+                    <p class="text-gray-600">You retain full ownership and can export all your work. We provide 30 days to download your data after cancellation.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-2">How does the educational discount work?</h3>
+                    <p class="text-gray-600">Students with valid .edu email addresses automatically receive 60% off all plans. Teachers and institutions have additional special pricing.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-2">What are AI tokens and how many do I need?</h3>
+                    <p class="text-gray-600">Tokens measure AI usage. Light users (1-2 projects) need ~5K/month, moderate users need ~15K/month, heavy users need 50K+/month.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-2">Can I change plans anytime?</h3>
+                    <p class="text-gray-600">Yes! Upgrade or downgrade anytime. Changes take effect immediately, and we'll prorate the billing accordingly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-20 bg-gradient-to-br from-purple-600 to-indigo-700 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-6">
+                Ready to Transform Your Writing?
+            </h2>
+            <p class="text-xl mb-8 opacity-90">
+                Join thousands of writers who've mastered their craft with Alvin's systematic approach.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-purple-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-100 transition-colors">
+                    🆓 Start Free Trial
+                </button>
+                <a href="student-dashboard.html" class="border-2 border-white text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+                    📚 View Demo
+                </a>
+            </div>
+
+            <div class="mt-8 text-sm opacity-80">
+                14-day free trial • No credit card required • Cancel anytime
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Navigation -->
+    <div class="bg-gray-100 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Explore All Alvin Experiences</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="student-dashboard.html" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    🎓 Student Experience
+                </a>
+                <a href="collaboration-workspace.html" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    🤝 Collaboration Studio
+                </a>
+                <a href="success-stories.html" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    🏆 Success Stories
+                </a>
+                <a href="index.html" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors">
+                    🏠 Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Billing toggle functionality
+        let isAnnual = false;
+        const toggle = document.getElementById('billing-toggle');
+        const toggleButton = toggle.querySelector('div');
+        
+        toggle.addEventListener('click', function() {
+            isAnnual = !isAnnual;
+            if (isAnnual) {
+                toggleButton.style.transform = 'translateX(24px)';
+                toggle.classList.add('toggle-active');
+                // Update prices for annual billing (20% discount)
+                document.getElementById('student-price').textContent = '$10';
+                document.getElementById('pro-price').textContent = '$23';
+                document.getElementById('team-price').textContent = '$71';
+            } else {
+                toggleButton.style.transform = 'translateX(0)';
+                toggle.classList.remove('toggle-active');
+                // Reset to monthly prices
+                document.getElementById('student-price').textContent = '$12';
+                document.getElementById('pro-price').textContent = '$29';
+                document.getElementById('team-price').textContent = '$89';
+            }
+        });
+        
+        // Calculator functionality
+        function updateRecommendation() {
+            const userType = document.getElementById('user-type').value;
+            const userCount = parseInt(document.getElementById('user-count').value);
+            const projectCount = parseInt(document.getElementById('project-count').value);
+            const aiUsage = document.getElementById('ai-usage').value;
+            
+            let recommendedPlan = 'Starter';
+            let price = '$0';
+            let reason = [];
+            
+            if (userType === 'student') {
+                if (projectCount > 1 || aiUsage !== 'light') {
+                    recommendedPlan = 'Student';
+                    price = '$12';
+                    reason = ['Educational discount applied', 'Perfect for academic work', 'Study group collaboration'];
+                } else {
+                    recommendedPlan = 'Starter';
+                    price = '$0';
+                    reason = ['Free tier is sufficient', 'Light usage pattern', 'Single project focus'];
+                }
+            } else if (userType === 'individual') {
+                if (projectCount > 5 || aiUsage === 'heavy') {
+                    recommendedPlan = 'Professional';
+                    price = '$29';
+                    reason = ['Unlimited projects', 'High AI token allowance', 'Professional features'];
+                } else if (projectCount > 1) {
+                    recommendedPlan = 'Student';
+                    price = '$12';
+                    reason = ['Good value for moderate use', 'Multiple project support', 'Advanced AI features'];
+                } else {
+                    recommendedPlan = 'Starter';
+                    price = '$0';
+                    reason = ['Free tier meets your needs', 'Single project use', 'Cost-effective start'];
+                }
+            } else if (userCount > 1) {
+                recommendedPlan = 'Team';
+                price = '$89';
+                reason = ['Multi-user collaboration', 'Shared token pool', 'Team management features'];
+            } else if (userType === 'publisher') {
+                recommendedPlan = 'Publisher Portal';
+                price = '$299';
+                reason = ['Access to talent pipeline', 'Quality verification tools', 'Revenue sharing model'];
+            }
+            
+            // Update recommendation display
+            const recDiv = document.getElementById('recommendation');
+            recDiv.querySelector('h4').textContent = recommendedPlan + ' Plan';
+            recDiv.querySelector('.text-4xl').textContent = price;
+            
+            // Update reason list
+            const reasonList = recDiv.querySelector('ul');
+            if (reasonList) {
+                reasonList.innerHTML = reason.map(r => `<li>• ${r}</li>`).join('');
+            } else {
+                const whyDiv = document.querySelector('.mt-6.p-4.bg-white.rounded-lg ul');
+                if (whyDiv) {
+                    whyDiv.innerHTML = reason.map(r => `<li>• ${r}</li>`).join('');
+                }
+            }
+        }
+        
+        // Add event listeners to calculator inputs
+        document.getElementById('user-type').addEventListener('change', updateRecommendation);
+        document.getElementById('user-count').addEventListener('input', updateRecommendation);
+        document.getElementById('project-count').addEventListener('input', updateRecommendation);
+        document.getElementById('ai-usage').addEventListener('change', updateRecommendation);
+        
+        // Initialize calculator
+        updateRecommendation();
+    </script>
+</body>
+</html>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alvin Writing Studio - Master the Craft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-header { background: linear-gradient(135deg, #059669 0%, #10b981 100%); }
+        .editor-content { 
+            min-height: 500px; 
+            line-height: 1.8; 
+            font-size: 16px;
+            background: linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%);
+        }
+        .teacher-card { 
+            transition: all 0.3s ease; 
+            cursor: pointer;
+        }
+        .teacher-card:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 12px 28px rgba(0,0,0,0.15); 
+        }
+        .teacher-active { 
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+        .ai-suggestion { 
+            background: linear-gradient(90deg, #f0f9ff, #e0f2fe);
+            border-left: 4px solid #0ea5e9;
+            animation: slideInRight 0.5s ease-out;
+        }
+        @keyframes slideInRight { 
+            from { opacity: 0; transform: translateX(20px); } 
+            to { opacity: 1; transform: translateX(0); } 
+        }
+        .writing-flow { animation: pulse 2s infinite; }
+        .token-meter { 
+            background: linear-gradient(90deg, #10b981, #34d399);
+            transition: width 0.3s ease;
+        }
+        .scene-outline { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+        .character-note { background: linear-gradient(135deg, #ddd6fe, #c4b5fd); }
+        .plot-suggestion { background: linear-gradient(135deg, #fecaca, #fca5a5); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-indigo-600">🎭 Alvin</a>
+                    <div class="ml-4 flex items-center space-x-2">
+                        <span class="text-gray-500">•</span>
+                        <span class="font-medium text-gray-900">"The Last Library" - Chapter 1</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Writing Session Active</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Token Meter -->
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Tokens:</span>
+                        <div class="w-24 bg-gray-200 rounded-full h-2">
+                            <div class="token-meter h-2 rounded-full" style="width: 73%"></div>
+                        </div>
+                        <span class="text-sm font-medium text-green-600">7,347 / 10,000</span>
+                    </div>
+                    <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                        💾 Save Draft
+                    </button>
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="gradient-header text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h1 class="text-2xl font-bold mb-2">✍️ Writing Studio</h1>
+                    <p class="text-green-100">Where stories come alive with guidance from 8 master teachers</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center space-x-6">
+                    <div class="text-center">
+                        <div class="text-xl font-bold">2,847</div>
+                        <div class="text-sm text-green-100">Words today</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl font-bold">Chapter 1</div>
+                        <div class="text-sm text-green-100">Scene 3 of 7</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl font-bold">8.7/10</div>
+                        <div class="text-sm text-green-100">Quality score</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- 8 Master Teachers Panel -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">🧠 Master Teachers</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="teacher-card teacher-active p-3 rounded-lg border">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-2xl">📚</div>
+                                <div>
+                                    <div class="font-semibold">Master Plotwright</div>
+                                    <div class="text-xs opacity-80">Story structure • Currently active</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-card p-3 rounded-lg border border-gray-200 hover:border-blue-300">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-2xl">🎭</div>
+                                <div>
+                                    <div class="font-semibold text-gray-700">Master Voicekeeper</div>
+                                    <div class="text-xs text-gray-500">Character voices & dialogue</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-card p-3 rounded-lg border border-gray-200 hover:border-green-300">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-2xl">🌍</div>
+                                <div>
+                                    <div class="font-semibold text-gray-700">Master Worldsmith</div>
+                                    <div class="text-xs text-gray-500">Setting & atmosphere</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-card p-3 rounded-lg border border-gray-200 hover:border-red-300">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-2xl">⚔️</div>
+                                <div>
+                                    <div class="font-semibold text-gray-700">Master Tensionweaver</div>
+                                    <div class="text-xs text-gray-500">Conflict & drama</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-card p-3 rounded-lg border border-gray-200 hover:border-purple-300">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-2xl">🎨</div>
+                                <div>
+                                    <div class="font-semibold text-gray-700">Master Stylist</div>
+                                    <div class="text-xs text-gray-500">Prose style & technique</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-card p-3 rounded-lg border border-gray-200 hover:border-indigo-300">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-2xl">💭</div>
+                                <div>
+                                    <div class="font-semibold text-gray-700">Master Themekeeper</div>
+                                    <div class="text-xs text-gray-500">Themes & meaning</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-card p-3 rounded-lg border border-gray-200 hover:border-yellow-300">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-2xl">🔍</div>
+                                <div>
+                                    <div class="font-semibold text-gray-700">Master Critic</div>
+                                    <div class="text-xs text-gray-500">Analysis & improvement</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-card p-3 rounded-lg border border-gray-200 hover:border-emerald-300">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-2xl">📝</div>
+                                <div>
+                                    <div class="font-semibold text-gray-700">Master Scribe</div>
+                                    <div class="text-xs text-gray-500">Technical craft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scene Outline -->
+                <div class="scene-outline rounded-xl border border-yellow-300 p-6 mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">📖 Scene Outline</h3>
+                    
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-start space-x-2">
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
+                            <div>
+                                <div class="font-medium">Opening: Discovery</div>
+                                <div class="text-gray-600">Maya finds the hidden entrance to the Last Library</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-2">
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
+                            <div>
+                                <div class="font-medium">Conflict: The Guardian</div>
+                                <div class="text-gray-600">Ancient guardian challenges her worthiness</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-2">
+                            <div class="w-2 h-2 bg-gray-300 rounded-full mt-2"></div>
+                            <div>
+                                <div class="font-medium text-gray-500">Resolution: Test of Knowledge</div>
+                                <div class="text-gray-400">Yet to be written...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Character Notes -->
+                <div class="character-note rounded-xl border border-purple-300 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">👥 Characters</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="font-semibold text-sm">Maya Chen</div>
+                            <div class="text-xs text-gray-600">Protagonist • Librarian • Curious, determined</div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="font-semibold text-sm">The Guardian</div>
+                            <div class="text-xs text-gray-600">Ancient protector • Wise, testing</div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-lg opacity-60">
+                            <div class="font-semibold text-sm text-gray-500">The Keeper</div>
+                            <div class="text-xs text-gray-400">To be introduced...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor Area -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-lg">
+                    <!-- Editor Header -->
+                    <div class="border-b border-gray-200 p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-900">Chapter 1: The Discovery</h2>
+                                <p class="text-sm text-gray-500">Scene 3: The Guardian's Challenge • 1,247 words</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm font-medium writing-flow">
+                                    🧠 Get AI Guidance
+                                </button>
+                                <button class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm font-medium">
+                                    📊 Analyze Scene
+                                </button>
+                                <button class="bg-green-100 text-green-700 px-3 py-1 rounded text-sm font-medium">
+                                    ✨ Enhance
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Editor Content -->
+                    <div class="p-6">
+                        <div class="editor-content prose max-w-none">
+                            <p class="mb-4">
+                                The ancient door groaned as Maya pushed it open, its hinges protesting after centuries of silence. 
+                                Beyond lay a vast chamber that defied the modest exterior of the abandoned building she'd entered. 
+                                Towering shelves stretched into shadows above, lined with books that seemed to shimmer with their own inner light.
+                            </p>
+                            
+                            <p class="mb-4">
+                                "Welcome, seeker," a voice echoed from the depths of the library, neither young nor old, 
+                                carrying the weight of ages. "I am the Guardian of the Last Library, keeper of humanity's 
+                                final collection of written knowledge."
+                            </p>
+                            
+                            <p class="mb-4">
+                                Maya's heart raced. The legends were true—somewhere in the world, one library had survived 
+                                the Great Burning, hidden from those who sought to erase human learning. She stepped forward, 
+                                her footsteps echoing in the sacred space.
+                            </p>
+                            
+                            <p class="mb-4">
+                                "I seek knowledge," Maya said, finding her voice. "The old ways, the lost stories. 
+                                I'm a librarian—was a librarian, before they destroyed the public libraries."
+                            </p>
+                            
+                            <p class="mb-4">
+                                The Guardian materialized from the shadows—tall, ethereal, with eyes like stars and robes 
+                                that seemed woven from moonlight and memory. "Many claim to seek knowledge," the Guardian said, 
+                                circling Maya slowly. "But few understand its true price. Knowledge demands sacrifice, 
+                                dedication, and above all, wisdom in its use."
+                            </p>
+                            
+                            <p class="mb-4">
+                                "I understand," Maya replied, though her voice trembled slightly. "I've seen what happens 
+                                when knowledge dies. I've watched people forget their own history, their stories, their dreams."
+                            </p>
+                            
+                            <p class="mb-4 bg-blue-50 border-l-4 border-blue-400 pl-4 py-2 rounded-r">
+                                <span class="text-blue-700 font-medium">[Master Plotwright suggests:]</span> 
+                                <span class="text-blue-600">This is an excellent place to introduce the Guardian's test. 
+                                Consider what specific challenge would reveal Maya's character and worthiness.</span>
+                            </p>
+                            
+                            <p class="mb-4">
+                                The Guardian nodded slowly, and for the first time, Maya saw something like approval in those ancient eyes. 
+                                "Then you will face the Test of Three Truths. Answer correctly, and the knowledge of ages 
+                                becomes your burden to bear. Answer falsely..." The Guardian's voice faded meaningfully.
+                            </p>
+                            
+                            <p class="text-gray-400 italic">
+                                [Continue writing to develop the Guardian's test...]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Writing Tools -->
+                <div class="bg-white rounded-xl shadow-lg mt-6 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">✨ Writing Enhancers</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <button class="p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors">
+                            <div class="text-2xl mb-2">📝</div>
+                            <div class="font-semibold text-sm">Continue Scene</div>
+                            <div class="text-xs text-gray-500">AI-assisted writing flow</div>
+                        </button>
+                        
+                        <button class="p-4 border border-gray-200 rounded-lg hover:border-green-300 hover:bg-green-50 transition-colors">
+                            <div class="text-2xl mb-2">🎨</div>
+                            <div class="font-semibold text-sm">Enhance Style</div>
+                            <div class="text-xs text-gray-500">Improve prose quality</div>
+                        </button>
+                        
+                        <button class="p-4 border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors">
+                            <div class="text-2xl mb-2">🗣️</div>
+                            <div class="font-semibold text-sm">Dialogue Coach</div>
+                            <div class="text-xs text-gray-500">Character voice help</div>
+                        </button>
+                        
+                        <button class="p-4 border border-gray-200 rounded-lg hover:border-yellow-300 hover:bg-yellow-50 transition-colors">
+                            <div class="text-2xl mb-2">🌍</div>
+                            <div class="font-semibold text-sm">World Builder</div>
+                            <div class="text-xs text-gray-500">Setting & atmosphere</div>
+                        </button>
+                        
+                        <button class="p-4 border border-gray-200 rounded-lg hover:border-red-300 hover:bg-red-50 transition-colors">
+                            <div class="text-2xl mb-2">⚡</div>
+                            <div class="font-semibold text-sm">Add Tension</div>
+                            <div class="text-xs text-gray-500">Increase dramatic stakes</div>
+                        </button>
+                        
+                        <button class="p-4 border border-gray-200 rounded-lg hover:border-indigo-300 hover:bg-indigo-50 transition-colors">
+                            <div class="text-2xl mb-2">💡</div>
+                            <div class="font-semibold text-sm">Theme Weaver</div>
+                            <div class="text-xs text-gray-500">Deepen meaning</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Feedback Panel -->
+            <div class="lg:col-span-1">
+                <!-- Active AI Feedback -->
+                <div class="ai-suggestion rounded-xl p-6 mb-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">📚</div>
+                        <h3 class="text-lg font-bold text-gray-900">Master Plotwright</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg">
+                            <div class="text-sm font-medium text-blue-700 mb-2">Story Structure Analysis</div>
+                            <div class="text-sm text-gray-700 mb-2">
+                                Excellent pacing! The Guardian's introduction creates perfect tension. Consider these improvements:
+                            </div>
+                            <ul class="text-xs text-gray-600 space-y-1">
+                                <li>• Add specific stakes for failing the test</li>
+                                <li>• Foreshadow the three truths earlier</li>
+                                <li>• Show Maya's physical reactions to fear</li>
+                            </ul>
+                            <div class="mt-3 flex space-x-2">
+                                <button class="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700">Apply Suggestions</button>
+                                <button class="bg-gray-100 text-gray-600 px-3 py-1 rounded text-xs hover:bg-gray-200">Ask More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-time Quality Scores -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">📊 Quality Metrics</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">Plot Development</span>
+                                <span class="font-semibold text-green-600">9.1/10</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 91%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">Character Voice</span>
+                                <span class="font-semibold text-blue-600">8.7/10</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 87%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">World Building</span>
+                                <span class="font-semibold text-purple-600">8.9/10</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-500 h-2 rounded-full" style="width: 89%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">Prose Style</span>
+                                <span class="font-semibold text-yellow-600">8.4/10</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 84%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">Overall Quality</span>
+                                <span class="font-semibold text-indigo-600">8.7/10</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-indigo-500 h-2 rounded-full" style="width: 87%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Suggestions -->
+                <div class="plot-suggestion rounded-xl border border-red-300 p-6 mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">💡 Quick Ideas</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg cursor-pointer hover:bg-gray-50">
+                            <div class="text-sm font-medium">The Three Truths</div>
+                            <div class="text-xs text-gray-600">What if each truth tests a different aspect: knowledge, wisdom, and sacrifice?</div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-lg cursor-pointer hover:bg-gray-50">
+                            <div class="text-sm font-medium">Guardian's Past</div>
+                            <div class="text-xs text-gray-600">Hint at the Guardian's own failed test centuries ago</div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-lg cursor-pointer hover:bg-gray-50">
+                            <div class="text-sm font-medium">Physical Stakes</div>
+                            <div class="text-xs text-gray-600">Show Maya's hands trembling, her breathing shallow</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Options -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">📤 Export & Share</h3>
+                    
+                    <div class="space-y-3">
+                        <button class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg text-sm font-medium hover:bg-gray-200">
+                            📄 Export as PDF
+                        </button>
+                        <button class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg text-sm font-medium hover:bg-gray-200">
+                            📖 Export as EPUB
+                        </button>
+                        <button class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg text-sm font-medium hover:bg-gray-200">
+                            📝 Export as DOCX
+                        </button>
+                        <button class="w-full bg-blue-100 text-blue-700 py-2 rounded-lg text-sm font-medium hover:bg-blue-200">
+                            🤝 Share for Collaboration
+                        </button>
+                        <button class="w-full bg-green-100 text-green-700 py-2 rounded-lg text-sm font-medium hover:bg-green-200">
+                            🎓 Submit Assignment
+                        </button>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                        <div class="text-sm text-blue-800 font-medium">🔗 Blockchain Certificate</div>
+                        <div class="text-xs text-blue-600 mt-1">
+                            All exports include authorship verification and AI assistance documentation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="bg-white border-t border-gray-200 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-500">Scene 3 of 7</span>
+                    <div class="w-64 bg-gray-200 rounded-full h-2">
+                        <div class="bg-green-500 h-2 rounded-full" style="width: 43%"></div>
+                    </div>
+                    <span class="text-sm text-gray-500">43% Complete</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">1,247 words</span>
+                    <span class="text-sm text-gray-400">•</span>
+                    <span class="text-sm text-gray-600">3 min read</span>
+                    <span class="text-sm text-gray-400">•</span>
+                    <span class="text-sm text-green-600">Auto-saved 5s ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Navigation -->
+    <div class="bg-green-100 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Explore More Alvin Features</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="student-dashboard.html" class="bg-white text-green-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    🎓 Student Experience
+                </a>
+                <a href="collaboration-workspace.html" class="bg-white text-green-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    🤝 Collaboration Studio
+                </a>
+                <a href="publisher-portal.html" class="bg-white text-green-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    📖 Publisher Portal
+                </a>
+                <a href="index.html" class="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors">
+                    🏠 Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate AI feedback updates
+        function updateQualityScores() {
+            const scores = document.querySelectorAll('.w-full.bg-gray-200 .bg-green-500, .w-full.bg-gray-200 .bg-blue-500, .w-full.bg-gray-200 .bg-purple-500, .w-full.bg-gray-200 .bg-yellow-500, .w-full.bg-gray-200 .bg-indigo-500');
+            scores.forEach(bar => {
+                const currentWidth = parseInt(bar.style.width);
+                const variation = Math.random() * 4 - 2; // ±2%
+                const newWidth = Math.max(70, Math.min(95, currentWidth + variation));
+                bar.style.width = newWidth + '%';
+            });
+        }
+        
+        // Update token meter
+        function updateTokenMeter() {
+            const meter = document.querySelector('.token-meter');
+            const currentWidth = parseFloat(meter.style.width.replace('%', ''));
+            const newWidth = Math.max(60, currentWidth - 0.1);
+            meter.style.width = newWidth + '%';
+            
+            const tokenCount = document.querySelector('.text-green-600');
+            if (tokenCount) {
+                const current = parseInt(tokenCount.textContent.split('/')[0].replace(',', ''));
+                tokenCount.textContent = `${(current - 1).toLocaleString()} / 10,000`;
+            }
+        }
+        
+        // Teacher card interactions
+        document.querySelectorAll('.teacher-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove active class from all cards
+                document.querySelectorAll('.teacher-card').forEach(c => c.classList.remove('teacher-active'));
+                // Add active class to clicked card
+                this.classList.add('teacher-active');
+            });
+        });
+        
+        // Simulate writing session
+        setInterval(updateQualityScores, 8000);
+        setInterval(updateTokenMeter, 15000);
+        
+        // Auto-save simulation
+        let saveCount = 5;
+        setInterval(() => {
+            saveCount++;
+            const saveStatus = document.querySelector('.text-green-600');
+            if (saveStatus && saveStatus.textContent.includes('Auto-saved')) {
+                saveStatus.textContent = `Auto-saved ${saveCount}s ago`;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

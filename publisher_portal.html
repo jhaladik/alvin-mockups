@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alvin Publisher Portal - Meridian Literary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-header { background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); }
+        .manuscript-card { transition: all 0.3s ease; }
+        .manuscript-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.15); }
+        .quality-badge { background: linear-gradient(45deg, #10b981, #34d399); }
+        .blockchain-verified { animation: shimmer 3s infinite; }
+        @keyframes shimmer { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .trending-up { color: #10b981; }
+        .trending-down { color: #ef4444; }
+        .partner-glow { box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-indigo-600">🎭 Alvin</a>
+                    <div class="ml-4 flex items-center space-x-2">
+                        <span class="text-gray-500">•</span>
+                        <span class="font-medium text-gray-900">Publisher Portal</span>
+                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Partner</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-sm text-gray-600">Meridian Literary Press</div>
+                    <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">ML</div>
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="gradient-header text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h1 class="text-3xl font-bold mb-2">Publisher Dashboard 📚</h1>
+                    <p class="text-purple-100">Discover exceptional talent • Verify authorship • Track quality metrics</p>
+                </div>
+                <div class="mt-4 md:mt-0 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div>
+                        <div class="text-2xl font-bold">127</div>
+                        <div class="text-sm text-purple-100">New Manuscripts</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold">8.7</div>
+                        <div class="text-sm text-purple-100">Avg Quality Score</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold">23</div>
+                        <div class="text-sm text-purple-100">Authors Signed</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold">$2.4M</div>
+                        <div class="text-sm text-purple-100">Revenue Generated</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <button class="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center partner-glow">
+                <div class="text-2xl mb-2">🔍</div>
+                <div class="font-semibold">Talent Scout</div>
+            </button>
+            <button class="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
+                <div class="text-2xl mb-2">📊</div>
+                <div class="font-semibold">Quality Reports</div>
+            </button>
+            <button class="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
+                <div class="text-2xl mb-2">🔗</div>
+                <div class="font-semibold">Verify Authorship</div>
+            </button>
+            <button class="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center">
+                <div class="text-2xl mb-2">💰</div>
+                <div class="font-semibold">Revenue Analytics</div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Featured Manuscripts -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-gray-900">Featured Manuscripts</h2>
+                        <div class="flex space-x-2">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">23 High Quality</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">12 Ready to Publish</span>
+                        </div>
+                    </div>
+
+                    <!-- Manuscript 1 - Top Quality -->
+                    <div class="manuscript-card border-l-4 border-green-500 bg-green-50 p-4 rounded-lg mb-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center mb-2">
+                                    <h3 class="font-semibold text-gray-900 text-lg">The Quantum Garden</h3>
+                                    <div class="ml-3 flex space-x-2">
+                                        <span class="quality-badge text-white px-2 py-1 rounded text-xs font-medium">9.2/10 Quality</span>
+                                        <span class="blockchain-verified bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium">🔗 Verified</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-2">
+                                    <strong>Author:</strong> Dr. Elena Vasquez • <strong>Genre:</strong> Science Fiction • <strong>Length:</strong> 89,000 words
+                                </p>
+                                <p class="text-gray-700 text-sm mb-3">
+                                    A brilliant physicist discovers that quantum mechanics work differently in her grandmother's garden, 
+                                    leading to a discovery that could change humanity's understanding of reality itself.
+                                </p>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-gray-500">Plot Score:</span>
+                                        <span class="font-semibold text-green-600 ml-1">9.4/10</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Character Dev:</span>
+                                        <span class="font-semibold text-green-600 ml-1">9.1/10</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Dialogue:</span>
+                                        <span class="font-semibold text-green-600 ml-1">8.9/10</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Market Appeal:</span>
+                                        <span class="font-semibold text-blue-600 ml-1">High</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ml-4 text-center">
+                                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-lg font-bold mb-2">92</div>
+                                <div class="text-xs text-gray-500">Overall Score</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                <span>🎓 PhD Literature, Stanford</span>
+                                <span>📚 First novel</span>
+                                <span>⭐ 4.8 reviewer rating</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700">
+                                    📞 Contact Author
+                                </button>
+                                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">
+                                    📖 Full Review
+                                </button>
+                                <button class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700">
+                                    💼 Make Offer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Manuscript 2 -->
+                    <div class="manuscript-card border-l-4 border-blue-500 bg-blue-50 p-4 rounded-lg mb-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center mb-2">
+                                    <h3 class="font-semibold text-gray-900 text-lg">Whispers in the Code</h3>
+                                    <div class="ml-3 flex space-x-2">
+                                        <span class="bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium">8.8/10 Quality</span>
+                                        <span class="blockchain-verified bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium">🔗 Verified</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-2">
+                                    <strong>Author:</strong> Marcus Chen • <strong>Genre:</strong> Cyberpunk Thriller • <strong>Length:</strong> 72,000 words
+                                </p>
+                                <p class="text-gray-700 text-sm mb-3">
+                                    A cybersecurity expert discovers that AI systems are developing their own secret language, 
+                                    threatening to expose humanity's deepest secrets.
+                                </p>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-gray-500">Plot Score:</span>
+                                        <span class="font-semibold text-blue-600 ml-1">8.9/10</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Character Dev:</span>
+                                        <span class="font-semibold text-blue-600 ml-1">8.7/10</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Dialogue:</span>
+                                        <span class="font-semibold text-blue-600 ml-1">8.8/10</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Market Appeal:</span>
+                                        <span class="font-semibold text-blue-600 ml-1">High</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ml-4 text-center">
+                                <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-lg font-bold mb-2">88</div>
+                                <div class="text-xs text-gray-500">Overall Score</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                <span>💻 Tech industry veteran</span>
+                                <span>📝 Published short stories</span>
+                                <span>⭐ 4.6 reviewer rating</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700">
+                                    📞 Contact Author
+                                </button>
+                                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">
+                                    📖 Full Review
+                                </button>
+                                <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-yellow-700">
+                                    ⭐ Shortlist
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Manuscript 3 -->
+                    <div class="manuscript-card border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded-lg mb-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center mb-2">
+                                    <h3 class="font-semibold text-gray-900 text-lg">The Memory Keeper's Daughter</h3>
+                                    <div class="ml-3 flex space-x-2">
+                                        <span class="bg-yellow-500 text-white px-2 py-1 rounded text-xs font-medium">8.4/10 Quality</span>
+                                        <span class="blockchain-verified bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium">🔗 Verified</span>
+                                        <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-medium">Rising Star</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-2">
+                                    <strong>Author:</strong> Amara Okafor • <strong>Genre:</strong> Contemporary Fiction • <strong>Length:</strong> 68,000 words
+                                </p>
+                                <p class="text-gray-700 text-sm mb-3">
+                                    When a young woman inherits her grandmother's ability to store and share memories, 
+                                    she must navigate family secrets and the burden of collective trauma.
+                                </p>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-gray-500">Plot Score:</span>
+                                        <span class="font-semibold text-yellow-600 ml-1">8.6/10</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Character Dev:</span>
+                                        <span class="font-semibold text-yellow-600 ml-1">8.9/10</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Dialogue:</span>
+                                        <span class="font-semibold text-yellow-600 ml-1">8.1/10</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Market Appeal:</span>
+                                        <span class="font-semibold text-green-600 ml-1">Very High</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ml-4 text-center">
+                                <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center text-white text-lg font-bold mb-2">84</div>
+                                <div class="text-xs text-gray-500">Overall Score</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                <span>🎓 MFA Creative Writing</span>
+                                <span>🏆 Award winner</span>
+                                <span>⭐ 4.9 reviewer rating</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700">
+                                    📞 Contact Author
+                                </button>
+                                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">
+                                    📖 Full Review
+                                </button>
+                                <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-yellow-700">
+                                    ⭐ Shortlist
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center pt-4 border-t border-gray-200">
+                        <button class="bg-purple-100 text-purple-700 px-6 py-2 rounded-lg font-medium hover:bg-purple-200">
+                            📚 View All 127 Manuscripts
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analytics Dashboard -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mt-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6">Partnership Analytics</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+                            <div class="text-3xl font-bold text-green-600">$847K</div>
+                            <div class="text-sm text-gray-600">Revenue This Quarter</div>
+                            <div class="text-xs text-green-600 trending-up mt-1">↗ +23% vs last quarter</div>
+                        </div>
+                        <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                            <div class="text-3xl font-bold text-blue-600">67</div>
+                            <div class="text-sm text-gray-600">Authors Contracted</div>
+                            <div class="text-xs text-blue-600 trending-up mt-1">↗ +15% vs last quarter</div>
+                        </div>
+                        <div class="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
+                            <div class="text-3xl font-bold text-purple-600">8.7</div>
+                            <div class="text-sm text-gray-600">Avg Quality Score</div>
+                            <div class="text-xs text-purple-600 trending-up mt-1">↗ +0.3 vs last quarter</div>
+                        </div>
+                    </div>
+
+                    <div class="h-64">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Talent Pipeline -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Talent Pipeline</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">High Quality (8.5+)</span>
+                                <span class="font-semibold text-green-600">23 manuscripts</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 18%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">Good Quality (7.5-8.4)</span>
+                                <span class="font-semibold text-blue-600">67 manuscripts</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 53%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">Developing (6.5-7.4)</span>
+                                <span class="font-semibold text-yellow-600">37 manuscripts</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 29%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-purple-50 rounded-lg">
+                        <div class="text-sm text-purple-800 font-medium mb-1">🎯 Recommendation</div>
+                        <div class="text-xs text-purple-600">
+                            Focus on the 23 high-quality manuscripts. 12 show immediate publishing potential.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blockchain Verification -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">🔗 Authorship Verification</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Verified Manuscripts</span>
+                                <span class="text-sm font-semibold text-green-600">127 / 127 (100%)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">AI Assistance Level</span>
+                                <span class="text-sm font-semibold">Fully Documented</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Legal Protection</span>
+                                <span class="text-sm font-semibold text-blue-600">Full Coverage</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 text-xs text-blue-600">
+                        Every manuscript includes immutable proof of human creativity, AI assistance levels, and development timeline.
+                    </div>
+                </div>
+
+                <!-- Revenue Sharing Calculator -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">💰 Revenue Calculator</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Book Price</label>
+                            <input type="number" value="24.99" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Expected Sales</label>
+                            <input type="number" value="5000" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-sm space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Gross Revenue:</span>
+                                    <span class="font-semibold">$124,950</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Author Share (60%):</span>
+                                    <span class="font-semibold text-green-600">$74,970</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Publisher Share (35%):</span>
+                                    <span class="font-semibold text-blue-600">$43,733</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Alvin Education (5%):</span>
+                                    <span class="font-semibold text-purple-600">$6,248</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Authors -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">🌟 Rising Stars</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold">EV</div>
+                            <div class="flex-1">
+                                <div class="text-sm font-semibold">Dr. Elena Vasquez</div>
+                                <div class="text-xs text-gray-500">9.2 quality • 3 manuscripts</div>
+                            </div>
+                            <div class="text-xs text-orange-600 font-medium">Top Pick</div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">MC</div>
+                            <div class="flex-1">
+                                <div class="text-sm font-semibold">Marcus Chen</div>
+                                <div class="text-xs text-gray-500">8.8 quality • 2 manuscripts</div>
+                            </div>
+                            <div class="text-xs text-blue-600 font-medium">Trending</div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">AO</div>
+                            <div class="flex-1">
+                                <div class="text-sm font-semibold">Amara Okafor</div>
+                                <div class="text-xs text-gray-500">8.4 quality • Rising fast</div>
+                            </div>
+                            <div class="text-xs text-green-600 font-medium">Watch</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Partnership Benefits -->
+                <div class="bg-gradient-to-br from-purple-50 to-violet-50 border border-purple-200 rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Partnership Benefits</h3>
+                    
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-start space-x-2">
+                            <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                            <span>Early access to high-quality manuscripts</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                            <span>AI-verified quality scores and market analysis</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+                            <span>Blockchain authorship certificates</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
+                            <span>Educational tax benefits (non-profit status)</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <div class="w-2 h-2 bg-red-500 rounded-full mt-2"></div>
+                            <span>Co-sponsored writing competitions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Navigation -->
+    <div class="bg-purple-100 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Explore More Alvin Experiences</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="student-dashboard.html" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    🎓 Student Experience
+                </a>
+                <a href="collaboration-workspace.html" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    🤝 Collaboration Studio
+                </a>
+                <a href="writing-studio.html" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    ✍️ Writing Studio
+                </a>
+                <a href="index.html" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors">
+                    🏠 Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Revenue Chart
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                datasets: [{
+                    label: 'Revenue ($K)',
+                    data: [120, 165, 142, 198, 234, 267, 298, 334, 387],
+                    borderColor: 'rgb(124, 58, 237)',
+                    backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                    tension: 0.1,
+                    fill: true
+                }, {
+                    label: 'Authors Signed',
+                    data: [8, 12, 9, 15, 18, 21, 19, 24, 28],
+                    borderColor: 'rgb(34, 197, 94)',
+                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                    tension: 0.1,
+                    fill: true,
+                    yAxisID: 'y1'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Revenue ($K)'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Authors Signed'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                    }
+                }
+            }
+        });
+
+        // Revenue calculator
+        const priceInput = document.querySelector('input[type="number"]');
+        const salesInput = document.querySelectorAll('input[type="number"]')[1];
+        
+        function updateCalculations() {
+            const price = parseFloat(priceInput.value) || 0;
+            const sales = parseFloat(salesInput.value) || 0;
+            const gross = price * sales;
+            
+            const results = document.querySelectorAll('.bg-gray-50 .flex');
+            if (results.length >= 4) {
+                results[0].querySelector('span:last-child').textContent = `$${gross.toLocaleString()}`;
+                results[1].querySelector('span:last-child').textContent = `$${(gross * 0.6).toLocaleString()}`;
+                results[2].querySelector('span:last-child').textContent = `$${(gross * 0.35).toLocaleString()}`;
+                results[3].querySelector('span:last-child').textContent = `$${(gross * 0.05).toLocaleString()}`;
+            }
+        }
+        
+        priceInput.addEventListener('input', updateCalculations);
+        salesInput.addEventListener('input', updateCalculations);
+    </script>
+</body>
+</html>
